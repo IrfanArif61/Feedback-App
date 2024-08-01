@@ -22,7 +22,7 @@ import { Input } from "@/components/ui/input";
 import { verifySchema } from "@/schemas/verifySchema";
 import axios, { AxiosError } from "axios";
 
-const verifyAccountPage = () => {
+const VerifyAccountPage = () => {
   const router = useRouter();
   const params = useParams<{ username: string }>();
   const { toast } = useToast();
@@ -91,4 +91,4 @@ const verifyAccountPage = () => {
   );
 };
 
-export default verifyAccountPage;
+export default VerifyAccountPage;

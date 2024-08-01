@@ -1,10 +1,10 @@
 "use client";
+import React, { useState } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { User } from "next-auth";
 import { cn } from "@/lib/utils";
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
-import * as React from "react";
 import { Dialog, DialogClose } from "./ui/dialog";
 import { Button } from "./ui/button";
 import {
@@ -18,10 +18,12 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
+import { LogoutCard } from "./LogoutCard"; // Import LogoutCard component
 
 export function NavBar() {
   const { data: session } = useSession();
   const user: User = session?.user as User;
+  const [showLogoutCard, setShowLogoutCard] = useState(false); // State to control LogoutCard visibility
 
   return (
     <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
@@ -31,7 +33,7 @@ export function NavBar() {
             <MenuIcon />
             <Link href="/dashboard" className="pl-2 ml-24">
               <span className="text-black font-extrabold text-lg">
-                Genuine <span className="text-red-600 mt-4">Feedback</span>
+                Feedback <span className="text-red-600 mt-4">Fusion</span>
               </span>
             </Link>
           </SheetTrigger>
@@ -40,7 +42,7 @@ export function NavBar() {
               <SheetTitle className=" mt-64">
                 <Link href="/dashboard" className="pl-2">
                   <span className="text-black font-extrabold text-md">
-                    Genuine <span className="text-red-600 mt-4">Feedback</span>
+                    Feedback <span className="text-red-600 mt-4">Fusion</span>
                   </span>
                 </Link>
               </SheetTitle>
@@ -81,7 +83,7 @@ export function NavBar() {
                   <Link href="/sign-up">
                     <Button
                       onClick={() => signOut()}
-                      className="w-full"
+                      className="w-full font-bold"
                       variant="outline"
                     >
                       Signup
@@ -96,7 +98,7 @@ export function NavBar() {
           <NavigationMenuList className="max-[825px]:hidden">
             <Link href="/" className="pl-2">
               <span className="text-black font-extrabold text-xl">
-                Genuine <span className="text-red-500 mt-4">Feedback</span>
+                Feedback <span className="text-red-500 mt-4">Fusion</span>
               </span>
             </Link>
           </NavigationMenuList>
@@ -113,14 +115,17 @@ export function NavBar() {
             <>
               <Link href="/sign-in">
                 <Button
-                  className="hidden md:inline w-full md:w-auto text-black"
+                  className="hidden md:inline w-full  md:w-auto text-black bg-[#f8f6f6]"
                   variant="ghost"
                 >
                   Login
                 </Button>
               </Link>
               <Link href="/sign-up">
-                <Button className="hidden md:inline" variant="ghost">
+                <Button
+                  className="hidden md:inline bg-[#f8f6f6] ml-4"
+                  variant="ghost"
+                >
                   Signup
                 </Button>
               </Link>
@@ -130,8 +135,8 @@ export function NavBar() {
         <div className="flex items-center">
           {session && (
             <Button
-              onClick={() => signOut()}
-              className="hidden md:inline w-full md:w-auto  text-black font-bold bg-[#f0efef]"
+              onClick={() => setShowLogoutCard(true)} // Show LogoutCard on click
+              className="hidden md:inline w-full md:w-auto text-black font-bold bg-[#f0efef]"
               variant="ghost"
             >
               Logout
@@ -139,6 +144,15 @@ export function NavBar() {
           )}
         </div>
       </div>
+      {showLogoutCard && (
+        <LogoutCard
+          onConfirm={() => {
+            signOut();
+            setShowLogoutCard(false);
+          }}
+          onCancel={() => setShowLogoutCard(false)}
+        />
+      )}
     </div>
   );
 }

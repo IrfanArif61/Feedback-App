@@ -40,6 +40,7 @@ function UserDashboard() {
     setIsSwitchLoading(true);
     try {
       const response = await axios.get<ApiResponse>("/api/accept-messages");
+      console.log("Fetched acceptMessages:", response.data.isAcceptingMessage); // Debug log
       setValue("acceptMessages", response.data.isAcceptingMessage);
     } catch (error) {
       const axiosError = error as AxiosError<ApiResponse>;
@@ -58,7 +59,6 @@ function UserDashboard() {
   const fetchMessages = useCallback(
     async (refresh: boolean = false) => {
       setIsLoading(true);
-      setIsSwitchLoading(false);
       try {
         const response = await axios.get<ApiResponse>("/api/get-messages");
         setMessages(response.data.messages || []);
@@ -78,20 +78,19 @@ function UserDashboard() {
         });
       } finally {
         setIsLoading(false);
-        setIsSwitchLoading(false);
       }
     },
-    [setIsLoading, setMessages, toast]
+    [toast]
   );
 
   // Fetch initial state from the server
   useEffect(() => {
     if (!session || !session.user) return;
 
-    fetchMessages();
-
+    console.log("Session user detected:", session.user); // Debug log
     fetchAcceptMessages();
-  }, [session, setValue, toast, fetchAcceptMessages, fetchMessages]);
+    fetchMessages();
+  }, [session, fetchAcceptMessages, fetchMessages]);
 
   // Handle switch change
   const handleSwitchChange = async () => {
@@ -99,6 +98,7 @@ function UserDashboard() {
       const response = await axios.post<ApiResponse>("/api/accept-messages", {
         acceptMessages: !acceptMessages,
       });
+      console.log("Switch changed:", !acceptMessages); // Debug log
       setValue("acceptMessages", !acceptMessages);
       toast({
         title: response.data.message,
@@ -134,70 +134,76 @@ function UserDashboard() {
   };
 
   return (
-    <div className="my-36 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
-      <h1 className="text-4xl font-bold mb-4">
-        User <span className="text-red-500">Dashboard</span>
-      </h1>
+    <>
+      <div className="my-36 mx-4 md:mx-8 lg:mx-auto p-6 bg-white rounded w-full max-w-6xl">
+        <h1 className="text-4xl font-bold mb-4">
+          User <span className="text-red-500">Dashboard</span>
+        </h1>
 
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{" "}
-        <div className="flex items-center">
-          <input
-            type="text"
-            value={profileUrl}
-            disabled
-            className="input input-bordered w-full p-2 mr-2"
+        <div className="mb-4">
+          <h2 className="text-lg font-semibold mb-2">Copy Your Unique Link</h2>{" "}
+          <div className="flex items-center">
+            <input
+              type="text"
+              value={profileUrl}
+              disabled
+              className="input input-bordered w-full p-2 mr-2 bg-[#b3b1b133] rounded-lg"
+            />
+            <Button onClick={copyToClipboard}>Copy</Button>
+          </div>
+        </div>
+
+        <div className="mb-4">
+          <Switch
+            {...register("acceptMessages")}
+            checked={acceptMessages}
+            onCheckedChange={handleSwitchChange}
+            disabled={isSwitchLoading}
           />
-          <Button onClick={copyToClipboard}>Copy</Button>
+          <span className="ml-2">
+            Accept Messages:{" "}
+            {acceptMessages ? (
+              <span className="text-green-500 font-bold">On</span>
+            ) : (
+              <span className="text-red-500 font-bold">Off</span>
+            )}
+          </span>
+        </div>
+        <Separator />
+
+        <Button
+          className="mt-4"
+          variant="outline"
+          onClick={(e) => {
+            e.preventDefault();
+            fetchMessages(true);
+          }}
+        >
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <RefreshCcw className="h-4 w-4" />
+          )}
+        </Button>
+        <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {messages.length > 0 ? (
+            messages.map((message) => (
+              <MessageCard
+                key={message._id as string}
+                message={message}
+                onMessageDelete={handleDeleteMessage}
+              />
+            ))
+          ) : (
+            <p>No messages to display.</p>
+          )}
         </div>
       </div>
-
-      <div className="mb-4">
-        <Switch
-          {...register("acceptMessages")}
-          checked={acceptMessages}
-          onCheckedChange={handleSwitchChange}
-          disabled={isSwitchLoading}
-        />
-        <span className="ml-2">
-          Accept Messages:{" "}
-          {acceptMessages ? (
-            <span className="text-green-500 font-bold">On</span>
-          ) : (
-            <span className="text-red-500 font-bold">Off</span>
-          )}
-        </span>
-      </div>
-      <Separator />
-
-      <Button
-        className="mt-4"
-        variant="outline"
-        onClick={(e) => {
-          e.preventDefault();
-          fetchMessages(true);
-        }}
-      >
-        {isLoading ? (
-          <Loader2 className="h-4 w-4 animate-spin" />
-        ) : (
-          <RefreshCcw className="h-4 w-4" />
-        )}
-      </Button>
-      <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-6">
-        {messages.length > 0 ? (
-          messages.map((message, index) => (
-            <MessageCard
-              key={message._id as string}
-              message={message}
-              onMessageDelete={handleDeleteMessage}
-            />
-          ))
-        ) : (
-          <p>No messages to display.</p>
-        )}
-      </div>
-    </div>
+      <footer className="text-center p-4 md:p-6 bg-gray-900 text-white">
+        © 2024 Feedback <span className="text-red-500 font-bold">Fusion. </span>
+        All rights reserved.
+      </footer>
+    </>
   );
 }
 

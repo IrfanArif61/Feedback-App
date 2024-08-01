@@ -2,7 +2,7 @@
 
 import React from "react";
 import axios, { AxiosError } from "axios";
-// import dayjs from 'dayjs';
+import dayjs from "dayjs";
 import { X } from "lucide-react";
 import { Message } from "@/model/User";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -74,15 +74,15 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
                   onClick={handleDeleteConfirm}
                   className="bg-red-500 text-white hover:bg-red-700"
                 >
-                  Logout
+                  Delete
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        {/* <div className="text-sm">
-          {dayjs(message.createdAt).format('MMM D, YYYY h:mm A')}
-        </div> */}
+        <div className="text-sm">
+          {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
+        </div>
       </CardHeader>
       <CardContent></CardContent>
     </Card>

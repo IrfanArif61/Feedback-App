@@ -107,7 +107,7 @@ function SignUpForm() {
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Join Genuine <span className="text-red-500">Feedback</span>
+            Join Feedback <span className="text-red-500">Fusion</span>
           </h1>
           <Separator className="mb-2" />
 

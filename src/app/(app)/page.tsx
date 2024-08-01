@@ -22,7 +22,7 @@ export default function Home() {
             <span className="text-red-600">Anonymous Feedback</span>
           </h1>
           <p className="mt-3 md:mt-4 text-base md:text-lg">
-            Genuine Feedback - Where your identity{" "}
+            Honest Feedback - Where your identity{" "}
           </p>
           <span className=" text-black text-3xl font-bold ">
             <TypewriterComponent
@@ -69,9 +69,11 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="text-center p-4 md:p-6 bg-gray-900 text-white">
-        © 2024 <span className="text-red-500 font-bold">Genuine</span> Feedback.
+        © 2024 Feedback <span className="text-red-500 font-bold">Fusion. </span>
         All rights reserved.
       </footer>
     </>
   );
 }
+
+//

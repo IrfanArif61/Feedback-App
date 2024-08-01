@@ -97,7 +97,7 @@ export default function SendMessage() {
 
   return (
     <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
-      <h1 className="text-4xl font-bold mb-6 text-center ">
+      <h1 className="text-4xl font-bold mb-6 text-center mt-20 ">
         Public <span className="text-red-500">Profile</span>
       </h1>
       <Separator className="my-6" />

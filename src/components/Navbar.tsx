@@ -31,7 +31,7 @@ export function NavBar() {
         <Dialog>
           <SheetTrigger className="min-[825px]:hidden p-2 transition flex justify-center items-center">
             <MenuIcon />
-            <Link href="/dashboard" className="pl-2 ml-24">
+            <Link href={session ? "/dashboard" : "/"} className="pl-2 ml-24">
               <span className="text-black font-extrabold text-lg">
                 Feedback <span className="text-red-600 mt-4">Fusion</span>
               </span>
@@ -86,7 +86,7 @@ export function NavBar() {
                       className="w-full font-bold"
                       variant="outline"
                     >
-                      Signup
+                      Register
                     </Button>
                   </Link>
                 </DialogClose>
@@ -112,10 +112,10 @@ export function NavBar() {
               </span>
             </span>
           ) : (
-            <>
+            <div className="flex items-center ml-auto">
               <Link href="/sign-in">
                 <Button
-                  className="hidden md:inline w-full  md:w-auto text-black bg-[#f8f6f6]"
+                  className="hidden md:inline w-auto text-black bg-[#f8f6f6] font-bold"
                   variant="ghost"
                 >
                   Login
@@ -123,13 +123,13 @@ export function NavBar() {
               </Link>
               <Link href="/sign-up">
                 <Button
-                  className="hidden md:inline bg-[#f8f6f6] ml-4"
+                  className="hidden md:inline bg-[#f8f6f6] ml-4 font-bold"
                   variant="ghost"
                 >
-                  Signup
+                  Register
                 </Button>
               </Link>
-            </>
+            </div>
           )}
         </div>
         <div className="flex items-center">

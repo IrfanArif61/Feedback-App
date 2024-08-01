@@ -66,7 +66,10 @@ export default function LoginForm() {
       <div className="w-full max-w-md p-8 space-y-8 bg-[#ffffff] rounded-lg shadow-lg">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Join Feedback <span className="text-red-500">Fusion</span>
+            Join{" "}
+            <Link href="/">
+              Feedback <span className="text-red-500">Fusion</span>
+            </Link>
           </h1>
           <Separator className="mb-2" />
           <p className="mb-4">Sign in to start your anonymous adventure</p>

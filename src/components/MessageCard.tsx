@@ -50,9 +50,9 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
   };
 
   return (
-    <Card className="card-bordered">
+    <Card className="card-bordered dark:bg-black ">
       <CardHeader>
-        <div className="flex justify-between items-center">
+        <div className="flex justify-between items-center ">
           <CardTitle>{message.content}</CardTitle>
           <AlertDialog>
             <AlertDialogTrigger asChild>
@@ -60,7 +60,7 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
                 <X className="w-5 h-5" />
               </Button>
             </AlertDialogTrigger>
-            <AlertDialogContent>
+            <AlertDialogContent className="dark:bg-black">
               <AlertDialogHeader>
                 <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                 <AlertDialogDescription>
@@ -69,10 +69,12 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogCancel className="dark:bg-black dark:hover:bg-[#101010]">
+                  Cancel
+                </AlertDialogCancel>
                 <AlertDialogAction
                   onClick={handleDeleteConfirm}
-                  className="bg-red-500 text-white hover:bg-red-700"
+                  className="bg-red-500 dark:bg-red-600 text-white hover:bg-red-700 dark:hover:bg-red-700"
                 >
                   Delete
                 </AlertDialogAction>
@@ -80,7 +82,7 @@ export function MessageCard({ message, onMessageDelete }: MessageCardProps) {
             </AlertDialogContent>
           </AlertDialog>
         </div>
-        <div className="text-sm">
+        <div className="text-sm dark:text-gray-400">
           {dayjs(message.createdAt).format("MMM D, YYYY h:mm A")}
         </div>
       </CardHeader>

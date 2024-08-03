@@ -62,12 +62,12 @@ export default function LoginForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#FAF9F6]">
-      <div className="w-full max-w-md p-8 space-y-8 bg-[#ffffff] rounded-lg shadow-lg">
+    <div className="flex justify-center items-center min-h-screen bg-[#FAF9F6] dark:bg-[#101010]">
+      <div className="w-full max-w-md p-8 space-y-8 bg-[#ffffff] rounded-lg shadow-lg dark:bg-black">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Join{" "}
-            <Link href="/">
+            <Link href="/" className="dark:text-white">
               Feedback <span className="text-red-500">Fusion</span>
             </Link>
           </h1>
@@ -83,7 +83,11 @@ export default function LoginForm() {
                 <FormItem>
                   <FormLabel>Email/Username</FormLabel>
                   <FormControl>
-                    <Input {...field} placeholder="email/username" />
+                    <Input
+                      {...field}
+                      placeholder="email/username"
+                      className="dark:bg-black"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -97,13 +101,18 @@ export default function LoginForm() {
                 <FormItem>
                   <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input type="password" {...field} placeholder="password" />
+                    <Input
+                      type="password"
+                      {...field}
+                      placeholder="password"
+                      className="dark:bg-black"
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full font-bold">
               Sign In
             </Button>
           </form>
@@ -113,7 +122,7 @@ export default function LoginForm() {
             Not a member yet?{" "}
             <Link
               href="/sign-up"
-              className="text-[#0d0d0dd4] font-bold hover:text-black"
+              className="text-[#0d0d0dd4] font-bold hover:text-black dark:text-white  dark:hover:text-gray-300"
             >
               Sign up
             </Link>

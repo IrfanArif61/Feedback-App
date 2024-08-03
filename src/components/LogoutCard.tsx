@@ -21,7 +21,7 @@ type LogoutCardProps = {
 export function LogoutCard({ onConfirm, onCancel }: LogoutCardProps) {
   return (
     <AlertDialog open onOpenChange={onCancel}>
-      <AlertDialogContent>
+      <AlertDialogContent className="dark:bg-black">
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
@@ -29,10 +29,15 @@ export function LogoutCard({ onConfirm, onCancel }: LogoutCardProps) {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel onClick={onCancel}>Cancel</AlertDialogCancel>
+          <AlertDialogCancel
+            onClick={onCancel}
+            className="dark:bg-black dark:hover:bg-[#101010]"
+          >
+            Cancel
+          </AlertDialogCancel>
           <AlertDialogAction
             onClick={onConfirm}
-            className="bg-red-500 text-white hover:bg-red-700"
+            className="bg-red-500 text-white hover:bg-red-700 dark:bg-red-600 dark:hover:bg-red-700"
           >
             Logout
           </AlertDialogAction>

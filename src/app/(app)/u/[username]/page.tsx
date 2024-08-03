@@ -96,89 +96,95 @@ export default function SendMessage() {
   };
 
   return (
-    <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
-      <h1 className="text-4xl font-bold mb-6 text-center mt-20 ">
-        Public <span className="text-red-500">Profile</span>
-      </h1>
-      <Separator className="my-6" />
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-          <FormField
-            control={form.control}
-            name="content"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>
-                  Send Anonymous Message to{" "}
-                  <span className="text-red-500 text-md font-bold">
-                    @{username}
-                  </span>
-                </FormLabel>
-                <FormControl>
-                  <Textarea
-                    placeholder="Write your anonymous message here"
-                    className="resize-none"
-                    {...field}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className="flex justify-center">
-            {isLoading ? (
-              <Button disabled>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Please wait
-              </Button>
-            ) : (
-              <Button type="submit" disabled={isLoading || !messageContent}>
-                Send Message
-              </Button>
-            )}
-          </div>
-        </form>
-      </Form>
-      <Separator className="my-6" />
-      <div className="space-y-4 my-8">
-        <div className="space-y-2">
-          <Button
-            onClick={fetchSuggestedMessages}
-            className="my-4"
-            disabled={isSuggestLoading}
-          >
-            Suggest Messages
-          </Button>
-          <p>Click on any message below to select it.</p>
-        </div>
-        <Card>
-          <CardHeader>
-            <h3 className="text-xl font-semibold">Messages</h3>
-          </CardHeader>
-          <CardContent className="flex flex-col space-y-4">
-            {error ? (
-              <p className="text-red-500">{error.message}</p>
-            ) : (
-              parseStringMessages(completion).map((message, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="mb-2"
-                  onClick={() => handleMessageClick(message)}
-                >
-                  {message}
+    <div className="dark:bg-black">
+      <div className="container mx-auto my-8 p-6 bg-white dark:bg-black rounded max-w-4xl">
+        <h1 className="text-4xl font-bold mb-6 text-center mt-20 ">
+          Public <span className="text-red-500">Profile</span>
+        </h1>
+        <Separator className="my-6" />
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="content"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Send Anonymous Message to{" "}
+                    <span className="text-red-500 text-md font-bold">
+                      @{username}
+                    </span>
+                  </FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Write your anonymous message here"
+                      className="resize-none dark:bg-black"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <div className="flex justify-center">
+              {isLoading ? (
+                <Button disabled>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Please wait
                 </Button>
-              ))
-            )}
-          </CardContent>
-        </Card>
-      </div>
-      <Separator className="my-6" />
-      <div className="text-center">
-        <div className="mb-4 text-xl font-bold">Get Your Message Board</div>
-        <Link href={"/sign-up"}>
-          <Button>Create Your Account</Button>
-        </Link>
+              ) : (
+                <Button
+                  type="submit"
+                  className="font-bold"
+                  disabled={isLoading || !messageContent}
+                >
+                  Send Message
+                </Button>
+              )}
+            </div>
+          </form>
+        </Form>
+        <Separator className="my-6" />
+        <div className="space-y-4 my-8">
+          <div className="space-y-2">
+            <Button
+              onClick={fetchSuggestedMessages}
+              className="my-4 font-bold"
+              disabled={isSuggestLoading}
+            >
+              Suggest Messages
+            </Button>
+            <p>Click on any message below to select it.</p>
+          </div>
+          <Card className="dark:bg-black">
+            <CardHeader>
+              <h3 className="text-xl font-semibold">Messages</h3>
+            </CardHeader>
+            <CardContent className="flex flex-col space-y-4 ">
+              {error ? (
+                <p className="text-red-500">{error.message}</p>
+              ) : (
+                parseStringMessages(completion).map((message, index) => (
+                  <Button
+                    key={index}
+                    variant="outline"
+                    className="mb-2 dark:bg-black"
+                    onClick={() => handleMessageClick(message)}
+                  >
+                    {message}
+                  </Button>
+                ))
+              )}
+            </CardContent>
+          </Card>
+        </div>
+        <Separator className="my-6" />
+        <div className="text-center">
+          <div className="mb-4 text-xl font-bold">Get Your Message Board</div>
+          <Link href={"/sign-up"}>
+            <Button className="font-bold">Create Your Account</Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

@@ -103,12 +103,12 @@ function SignUpForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#faf9f6]">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-[#faf9f6] dark:bg-[#101010]">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-black">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Join{" "}
-            <Link href="/">
+            <Link href="/" className="dark:text-white">
               Feedback <span className="text-red-500">Fusion</span>
             </Link>
           </h1>
@@ -118,7 +118,7 @@ function SignUpForm() {
         </div>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6 ">
             <FormField
               name="username"
               control={form.control}
@@ -133,6 +133,7 @@ function SignUpForm() {
                         debounced(e.target.value);
                       }}
                       placeholder="john Doe"
+                      className="dark:bg-black"
                     />
                   </FormControl>
 
@@ -163,9 +164,10 @@ function SignUpForm() {
                       {...field}
                       name="email"
                       placeholder="name@example.com"
+                      className="dark:bg-black"
                     />
                   </FormControl>
-                  <p className="text-muted text-gray-400 text-sm">
+                  <p className="text-muted text-gray-400 text-sm dark:text-gray-300">
                     We will send you a verification code
                   </p>
                   <FormMessage />
@@ -185,13 +187,18 @@ function SignUpForm() {
                       {...field}
                       name="password"
                       placeholder="••••••••"
+                      className="dark:bg-black"
                     />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              className="w-full font-bold"
+              disabled={isSubmitting}
+            >
               {isSubmitting ? (
                 <>
                   <Loader2 className="mr-2 h-4 w-4 animate-spin" />
@@ -208,7 +215,7 @@ function SignUpForm() {
             Already a member?{" "}
             <Link
               href="/sign-in"
-              className="text-[#0d0d0dd4] font-bold hover:text-black"
+              className="text-[#0d0d0dd4] font-bold hover:text-black dark:text-white  dark:hover:text-gray-300"
             >
               Sign in
             </Link>

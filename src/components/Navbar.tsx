@@ -19,38 +19,44 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 import { LogoutCard } from "./LogoutCard"; // Import LogoutCard component
+import ModeToggle from "./Mode-Toggle";
+import { useTheme } from "next-themes";
 
 export function NavBar() {
   const { data: session } = useSession();
   const user: User = session?.user as User;
   const [showLogoutCard, setShowLogoutCard] = useState(false); // State to control LogoutCard visibility
+  const { theme } = useTheme();
 
   return (
     <div className="flex items-center min-w-full w-full fixed justify-center p-2 z-[50] mt-[2rem]">
-      <div className="flex justify-between md:w-[720px] w-[95%] border dark:border-zinc-900 dark:bg-black bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-gray-900 border-white border-opacity-20 rounded-xl p-2 shadow-lg">
+      <div className="flex justify-between md:w-[720px] w-[95%] border dark:border-gray-700  bg-opacity-10 relative backdrop-filter backdrop-blur-lg bg-black border-white border-opacity-20 rounded-xl p-2 shadow-lg">
         <Dialog>
-          <SheetTrigger className="min-[825px]:hidden p-2 transition flex justify-center items-center">
+          <SheetTrigger className="min-[825px]:hidden p-2 transition flex justify-center items-center ">
             <MenuIcon />
-            <Link href={session ? "/dashboard" : "/"} className="pl-2 ml-24">
-              <span className="text-black font-extrabold text-lg">
+            <Link href={session ? "/dashboard" : "/"} className="pl-2 ml-20">
+              <span className="text-black font-extrabold text-lg dark:text-white ">
                 Feedback <span className="text-red-600 mt-4">Fusion</span>
               </span>
             </Link>
           </SheetTrigger>
-          <SheetContent side="left">
+          <SheetContent side="left" className="dark:bg-black">
             <SheetHeader>
-              <SheetTitle className=" mt-64">
+              <SheetTitle className=" mt-60">
                 <Link href="/dashboard" className="pl-2">
-                  <span className="text-black font-extrabold text-md">
+                  <span className="text-black font-extrabold text-md dark:text-white">
                     Feedback <span className="text-red-600 mt-4">Fusion</span>
                   </span>
                 </Link>
               </SheetTitle>
             </SheetHeader>
-            <div className="flex flex-col space-y-3 z-[99] mt-8">
+            <div className="flex flex-col space-y-3 z-[99] mt-8 ">
               <DialogClose asChild>
                 <Link href="/">
-                  <Button variant="outline" className="w-full font-bold">
+                  <Button
+                    variant="outline"
+                    className="w-full font-bold dark:bg-black dark:hover:bg-[#0e0e0e]"
+                  >
                     Home
                   </Button>
                 </Link>
@@ -61,7 +67,7 @@ export function NavBar() {
                   <Link href="/">
                     <Button
                       onClick={() => signOut()}
-                      className="w-full font-bold text-red-600 hover:text-red-600"
+                      className="w-full font-bold text-red-600 hover:text-red-600 dark:bg-black dark:hover:bg-[#0e0e0e]"
                       variant="outline"
                     >
                       Logout
@@ -71,7 +77,10 @@ export function NavBar() {
               ) : (
                 <DialogClose asChild>
                   <Link href="/sign-in">
-                    <Button className="w-full font-bold" variant="outline">
+                    <Button
+                      className="w-full font-bold dark:bg-black dark:hover:bg-[#0e0e0e]"
+                      variant="outline"
+                    >
                       Login
                     </Button>
                   </Link>
@@ -83,7 +92,7 @@ export function NavBar() {
                   <Link href="/sign-up">
                     <Button
                       onClick={() => signOut()}
-                      className="w-full font-bold"
+                      className="w-full font-bold dark:bg-black dark:hover:bg-[#0e0e0e]"
                       variant="outline"
                     >
                       Register
@@ -92,12 +101,13 @@ export function NavBar() {
                 </DialogClose>
               )}
             </div>
+            {/* <ModeToggle /> */}
           </SheetContent>
         </Dialog>
         <NavigationMenu>
           <NavigationMenuList className="max-[825px]:hidden">
             <Link href="/" className="pl-2">
-              <span className="text-black font-extrabold text-xl">
+              <span className="font-extrabold text-xl text-black dark:text-white">
                 Feedback <span className="text-red-500 mt-4">Fusion</span>
               </span>
             </Link>
@@ -115,7 +125,7 @@ export function NavBar() {
             <div className="flex items-center ml-auto">
               <Link href="/sign-in">
                 <Button
-                  className="hidden md:inline w-auto text-black bg-[#f8f6f6] font-bold"
+                  className="hidden md:inline w-auto text-black bg-[#f8f6f6] font-bold dark:text-black dark:hover:bg-[#e5dddd] transition-all"
                   variant="ghost"
                 >
                   Login
@@ -123,7 +133,7 @@ export function NavBar() {
               </Link>
               <Link href="/sign-up">
                 <Button
-                  className="hidden md:inline bg-[#f8f6f6] ml-4 font-bold"
+                  className="hidden md:inline bg-[#f8f6f6] ml-4 font-bold dark:text-black dark:hover:bg-[#e5dddd] transition-all"
                   variant="ghost"
                 >
                   Register
@@ -136,13 +146,14 @@ export function NavBar() {
           {session && (
             <Button
               onClick={() => setShowLogoutCard(true)} // Show LogoutCard on click
-              className="hidden md:inline w-full md:w-auto text-black font-bold bg-[#f0efef]"
+              className="hidden md:inline w-full md:w-auto text-black font-bold bg-[#f0efef] dark:hover:bg-[#e5dddd] dark:text-black transition-all"
               variant="ghost"
             >
               Logout
             </Button>
           )}
         </div>
+        <ModeToggle />
       </div>
       {showLogoutCard && (
         <LogoutCard

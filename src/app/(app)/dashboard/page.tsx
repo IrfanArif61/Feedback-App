@@ -74,7 +74,7 @@ function UserDashboard() {
           title: "Error",
           description:
             axiosError.response?.data.message ?? "Failed to fetch messages",
-          variant: "destructive",
+          variant: "default",
         });
       } finally {
         setIsLoading(false);

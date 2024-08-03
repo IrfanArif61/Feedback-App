@@ -95,7 +95,7 @@ export function NavBar() {
                       className="w-full font-bold dark:bg-black dark:hover:bg-[#0e0e0e]"
                       variant="outline"
                     >
-                      Register
+                      Signup
                     </Button>
                   </Link>
                 </DialogClose>
@@ -136,7 +136,7 @@ export function NavBar() {
                   className="hidden md:inline bg-[#f8f6f6] ml-4 font-bold dark:text-black dark:hover:bg-[#e5dddd] transition-all"
                   variant="ghost"
                 >
-                  Register
+                  Signup
                 </Button>
               </Link>
             </div>

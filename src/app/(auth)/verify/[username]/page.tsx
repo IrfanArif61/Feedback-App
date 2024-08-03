@@ -62,13 +62,15 @@ const VerifyAccountPage = () => {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
+    <div className="flex justify-center items-center min-h-screen bg-gray-100 dark:bg-[#000000]">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-black border-2 border-gray-400 border-opacity-30">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-            Verify Your Account
+            Verify Your <span className="dark:text-red-500">Account</span>
           </h1>
-          <p className="mb-4">Enter the verification code sent to your email</p>
+          <p className="mb-4 dark:text-gray-300">
+            Enter the verification code sent to your email
+          </p>
         </div>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -78,12 +80,14 @@ const VerifyAccountPage = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Verification Code</FormLabel>
-                  <Input {...field} />
+                  <Input {...field} className="dark:bg-black" />
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit">Verify</Button>
+            <Button type="submit" className="font-bold">
+              Verify
+            </Button>
           </form>
         </Form>
       </div>

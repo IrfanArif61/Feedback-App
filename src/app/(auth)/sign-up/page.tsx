@@ -103,8 +103,8 @@ function SignUpForm() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#faf9f6] dark:bg-[#101010]">
-      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-black">
+    <div className="flex justify-center items-center min-h-screen bg-[#faf9f6] dark:bg-black">
+      <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md dark:bg-black border-2 border-gray-400 border-opacity-30">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
             Join{" "}
